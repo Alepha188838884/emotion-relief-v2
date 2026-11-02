@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hidden Weather Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-pattern" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <header class="hero">
+      <div class="hero-text">
+        <p class="eyebrow">Interactive World · No goals · Just reactions</p>
+        <h1>Hidden Weather Studio</h1>
+        <p class="lede">
+          You steer a living world with pace, touch, and sound. Nothing tells you what to do—the
+          sky, light, and creatures simply listen and change with you.
+        </p>
+        <div class="hero-actions">
+          <a class="chip primary" href="#living-world">Stir the air</a>
+          <a class="chip ghost" href="#toy-lab">Play with forms</a>
+          <a class="chip ghost" href="#sound-world">Layer some sound</a>
+        </div>
+        <div class="hero-tags">
+          <span class="pill">Explore</span>
+          <span class="pill">Collect states</span>
+          <span class="pill">Control a landscape</span>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <canvas id="worldCanvas" aria-label="Living world canvas"></canvas>
+        <div class="world-hud">
+          <div>
+            <p class="hud-label">Airflow</p>
+            <p class="hud-value" id="windRead">—</p>
+          </div>
+          <div>
+            <p class="hud-label">Light drift</p>
+            <p class="hud-value" id="lightRead">—</p>
+          </div>
+          <div>
+            <p class="hud-label">Pulse</p>
+            <p class="hud-value" id="pulseRead">Tap to set</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="living-world" class="panel world-panel">
+        <div class="panel-text">
+          <p class="eyebrow">Module 1 · Living World System</p>
+          <h2>Weather that remembers your rhythm</h2>
+          <p>
+            Touch, drag, or tap anywhere on the stage. Fast motions push wind and streaks;
+            lingering touches slow clouds, bring back light, and draw creatures out. The world
+            reacts with delay and inertia—no instant reward, only a slow shift you can sense.
+          </p>
+          <div class="control-row">
+            <button class="btn ghost" id="softenWorld">Gentle breeze</button>
+            <button class="btn ghost" id="wakeWorld">Wake the sky</button>
+            <button class="btn ghost" id="resetWorld">New weather</button>
+          </div>
+          <p class="hint">
+            The stage listens to every module. The more you play elsewhere, the more this world
+            morphs on its own.
+          </p>
+        </div>
+        <div class="panel-visual">
+          <div class="legend">
+            <span class="dot calm"></span>
+            <span>Slow orbit</span>
+            <span class="dot active"></span>
+            <span>High swirl</span>
+          </div>
+          <div class="world-overlay">
+            <div class="world-note">Press, drag, pause. World reacts with a delay.</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="toy-lab" class="panel split">
+        <div class="subcard">
+          <div class="panel-text">
+            <p class="eyebrow">Module 2A · Morph Creatures</p>
+            <h3>Stretchable creatures that learn your tempo</h3>
+            <p>
+              Pull, squish, and swirl the blobs. They record your usual pace and pulse at the rhythm
+              you set. No scores—just a mirror of how you move.
+            </p>
+          </div>
+          <div class="creature-zone" id="creatureZone" aria-label="Morph creatures">
+            <div class="creature" data-name="glow"></div>
+            <div class="creature" data-name="cinder"></div>
+            <div class="creature" data-name="moss"></div>
+            <div class="creature-shadow"></div>
+          </div>
+        </div>
+        <div class="subcard">
+          <div class="panel-text">
+            <p class="eyebrow">Module 2B · Rhythm Pool</p>
+            <h3>Particles that follow with delay</h3>
+            <p>
+              Move your pointer or finger over the pool. Particles chase you with damping and
+              inertia—quick paths scatter, steady paths converge. The pool also feeds the world.
+            </p>
+          </div>
+          <div class="pool-wrap">
+            <canvas id="poolCanvas" aria-label="Rhythm particles"></canvas>
+            <div class="pool-hint">Guide slowly, then abruptly, and watch how long the pool takes to settle.</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="chaos-lab" class="panel chaos">
+        <div class="panel-text">
+          <p class="eyebrow">Module 3 · Chaos Lab</p>
+          <h2>Make chaos, then reel it back</h2>
+          <p>
+            Splash color, tear space, bend sound. The mess never escapes a safety threshold; the
+            louder you go, the slower the lab responds, forcing you to guide it back.
+          </p>
+          <div class="control-row">
+            <button class="btn primary" data-chaos="color">Spill pigment</button>
+            <button class="btn ghost" data-chaos="space">Tear space</button>
+            <button class="btn ghost" data-chaos="sound">Bend tone</button>
+          </div>
+          <div class="gauge">
+            <div class="gauge-track">
+              <div id="chaosBar" class="gauge-fill"></div>
+            </div>
+            <span id="chaosLabel">steady</span>
+          </div>
+          <p class="hint">
+            Chaos level slows down responses. Bring it back down by hovering, waiting, or using
+            gentle inputs.
+          </p>
+        </div>
+        <div class="chaos-visual">
+          <canvas id="chaosCanvas" aria-label="Chaos visual"></canvas>
+          <div class="chaos-shield">Safe floor: no matter what, the lab self-stabilizes.</div>
+        </div>
+      </section>
+
+      <section id="repair" class="panel repair">
+        <div class="panel-text">
+          <p class="eyebrow">Module 4 · World Repair</p>
+          <h2>Stand near, stay still, watch it mend</h2>
+          <p>
+            Fractures seal themselves when you linger nearby. No tasks, no counter—just slower
+            motion that lets the landscape tidy itself.
+          </p>
+        </div>
+        <div class="repair-field" id="repairField" aria-label="World repair field">
+          <div class="fracture" data-depth="0.5"></div>
+          <div class="fracture" data-depth="0.7"></div>
+          <div class="fracture" data-depth="0.6"></div>
+          <div class="fracture" data-depth="0.8"></div>
+          <div class="fracture" data-depth="0.4"></div>
+          <div class="fracture" data-depth="0.65"></div>
+          <div class="repair-glow"></div>
+        </div>
+      </section>
+
+      <section id="sound-world" class="panel sound">
+        <div class="panel-text">
+          <p class="eyebrow">Module 6 · Playful Sound World</p>
+          <h2>Tap tones that auto-align</h2>
+          <p>
+            Each pad drops a tone onto a shared pulse. Rapid taps get softened by filters, guiding
+            you into a slower groove without forcing it. Layer sounds, drag the slider to stretch
+            the beat.
+          </p>
+          <div class="control-row">
+            <label class="slider">
+              <span>Beat length</span>
+              <input id="tempoRange" type="range" min="60" max="110" value="84" />
+            </label>
+            <p class="hint">Changes apply on the next beat.</p>
+          </div>
+        </div>
+        <div class="sound-grid" aria-label="Sound pads">
+          <button class="pad" data-note="260">Glow</button>
+          <button class="pad" data-note="330">Reed</button>
+          <button class="pad" data-note="420">Glass</button>
+          <button class="pad" data-note="500">Pulse</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>
+        Hidden Weather Studio grows with you. New creatures, lights, and tones appear as the world
+        remembers your patterns.
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
